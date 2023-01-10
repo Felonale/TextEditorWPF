@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TextEditorWPF"
         mc:Ignorable="d"
         Title="New File" Height="600" Width="1000" Icon="/Icon.png">
@@ -20,13 +21,19 @@
     </Window.InputBindings>
 
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
-        <Menu x:Name="UpperMenu" Grid.Row="0" Height="30" VerticalAlignment="Top">
+        <Menu x:Name="UpperMenu" Grid.Row="0" Height="30" VerticalAlignment="Bottom">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
             <MenuItem Header="File" FontSize="16" Background="#FFEFEFEF" Margin="3" Height="auto">
                 <MenuItem x:Name="MenuItemNewFile" Header="New File" Margin="3" Command="New"/>
                 <Separator/>
@@ -66,6 +73,16 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Height="auto" Orientation="Horizontal" Margin="0 0 40 0">
+                <Label Content="Text Color:"/>
+                <xctk:ColorPicker x:Name="ColorPickerText" HorizontalAlignment="Right" Width="100" Height="auto" SelectedColorChanged="ColorPickerText_SelectedColorChanged"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Height="auto" Orientation="Horizontal">
+                <Label Content="Background Color:"/>
+                <xctk:ColorPicker x:Name="ColorPickerBackground" HorizontalAlignment="Right" Width="100" Height="auto" SelectedColorChanged="ColorPickerBackground_SelectedColorChanged"/>
+            </StackPanel>
+        </StackPanel>
 
         <TextBox x:Name="MainTextBox" Grid.Row="1" Height="auto" Width="auto" Padding="10" BorderThickness="0" TextChanged="MainTextBox_TextChanged">
             

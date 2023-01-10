@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TextEditorWPF
 {
@@ -35,6 +37,10 @@ namespace TextEditorWPF
         public MainWindow()
         {
             InitializeComponent();
+            MainTextBox.FontFamily = new FontFamily(Properties.Settings.Default.fontFamily);
+            MainTextBox.FontWeight = Properties.Settings.Default.fontWeight == "Bold" ? FontWeights.Bold : FontWeights.Regular;
+            MainTextBox.FontStyle = Properties.Settings.Default.fontStyle == "Italic" ? FontStyles.Italic : FontStyles.Normal;
+            MainTextBox.FontSize = Properties.Settings.Default.fontSize;
         }
 
         string savedPathToFile = null;
@@ -52,6 +58,7 @@ namespace TextEditorWPF
                     case MessageBoxResult.Cancel: return;
                 }
             }
+            savedPathToFile = "";
             MainTextBox.Text = "";
             Title = "New File";
         }
@@ -114,14 +121,44 @@ namespace TextEditorWPF
 
         private void MenuItemFont_Click(object sender, RoutedEventArgs e)
         {
-            Font customFontWindow = new Font();
-            customFontWindow.ShowDialog();
+            /*Font customFontWindow = new Font();
+            customFontWindow.ShowDialog();*/
+
+            FontDialog dialog = new FontDialog();
+            if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                MainTextBox.FontFamily = new FontFamily(dialog.Font.Name);
+                MainTextBox.FontSize = dialog.Font.Size;
+                MainTextBox.FontWeight = dialog.Font.Bold ? FontWeights.Bold : FontWeights.Regular;
+                MainTextBox.FontStyle = dialog.Font.Italic ? FontStyles.Italic: FontStyles.Normal;
+                Properties.Settings.Default.fontFamily = dialog.Font.Name;
+                Properties.Settings.Default.fontSize = dialog.Font.Size;
+                Properties.Settings.Default.fontWeight = dialog.Font.Bold ? "Bold" : "Regular";
+                Properties.Settings.Default.fontStyle = dialog.Font.Italic ? "Italic" : "Normal";
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void MainTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             isSaved = false;
             MenuItemIsSaved.Header = "Not saved :(";
+        }
+
+        private void ColorPickerBackground_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (ColorPickerBackground.SelectedColor != null)
+            {
+                MainTextBox.Background = new SolidColorBrush(ColorPickerBackground.SelectedColor.Value);
+            }
+        }
+
+        private void ColorPickerText_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if(ColorPickerText.SelectedColor != null)
+            {
+                MainTextBox.Foreground = new SolidColorBrush(ColorPickerText.SelectedColor.Value);
+            }
         }
     }
 }

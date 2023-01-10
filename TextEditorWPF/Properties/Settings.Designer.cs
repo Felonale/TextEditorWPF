@@ -46,5 +46,53 @@ namespace TextEditorWPF.Properties {
                 this["lastSavedFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fontStyle {
+            get {
+                return ((string)(this["fontStyle"]));
+            }
+            set {
+                this["fontStyle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fontWeight {
+            get {
+                return ((string)(this["fontWeight"]));
+            }
+            set {
+                this["fontWeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double fontSize {
+            get {
+                return ((double)(this["fontSize"]));
+            }
+            set {
+                this["fontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Параметр {
+            get {
+                return ((string)(this["Параметр"]));
+            }
+            set {
+                this["Параметр"] = value;
+            }
+        }
     }
 }
